@@ -11,4 +11,5 @@ install:
 - yarn
   #- yarn install --force
 script:
+- 
   #- yarn test
