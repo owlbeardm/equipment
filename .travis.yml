@@ -11,5 +11,5 @@ install:
 - yarn
   #- yarn install --force
 script:
-- 
+- echo "skipping tests"
   #- yarn test
