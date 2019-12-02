@@ -1,0 +1,9 @@
+{
+  "name": "equipment",
+  "version": "0.1.0",
+  "description": "This is a tool to manage your Pathfinder equipment",
+  "main": "index.js",
+  "repository": "https://github.com/owlbeardm/equipment.git",
+  "author": "Nadzeya Ivashchanka & Mikita Kukavenka",
+  "license": "MIT"
+}
