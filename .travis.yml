@@ -9,7 +9,41 @@ notifications:
     - owlbeardm@gmail.com
 install:
 - yarn
-  #- yarn install --force
+- yarn install --force
 script:
 - echo "skipping tests"
   #- yarn test
+
+after_success:
+  - export LAST_GIT_TAG_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`) && export LAST_GIT_TAG_VERSION=${LAST_GIT_TAG_VERSION:1}
+  - export GIT_TAG_VERSION=$(echo $LAST_GIT_TAG_VERSION | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{$NF=sprintf("%0*d", length($NF), ($NF+1)); print}')
+
+before_deploy:
+-
+- if ! [[ $TRAVIS_TAG ]]; then
+    yarn build --env.version=$GIT_TAG_VERSION-$TRAVIS_BRANCH.$TRAVIS_BUILD_NUMBER;
+  fi
+- if [[ $TRAVIS_TAG ]]; then
+    yarn build --env.version=${TRAVIS_TAG:1} &&
+    cd dist &&
+    zip equipment.zip -r * &&
+    mkdir release &&
+    mv equipment.zip release/equipment.zip &&
+    cd ..;
+  fi
+
+-: &s3_deploy
+    secret_access_key: $AMAZON_S3
+    provider: s3
+    access_key_id: "AKIATNSKVPXDWXMIVEXZ"
+    skip_cleanup: true
+    wait-until-deployed: true
+
+deploy:
+  # release a snapshot for each commit on develop branch
+  - <<: *s3_deploy
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^develop$
+    bucket: "devequipment.owlbeardm.com"
+    local_dir: "./dist"
