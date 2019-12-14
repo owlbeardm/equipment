@@ -6,6 +6,10 @@
   "repository": "https://github.com/owlbeardm/equipment.git",
   "author": "Nadzeya Ivashchanka & Mikita Kukavenka",
   "license": "MIT",
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
   "scripts": {
     "build": "webpack --config webpack.js --mode=production",
     "start": "webpack-dev-server --hot --open --config webpack.js --mode=development"
