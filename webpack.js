@@ -110,5 +110,9 @@ module.exports = (env, argv) => {
 		};
 	}
 
+	config.plugins.push(new webpack.DefinePlugin({
+		APP_VERSION: (env && env.version) ? JSON.stringify(env.version) : JSON.stringify('0.0.0')
+	}));
+
 	return config;
 }
