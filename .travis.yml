@@ -11,6 +11,7 @@ install:
 - yarn
 - yarn install --force
 script:
+- yarn lint
 - yarn build
 # - yarn test
 
