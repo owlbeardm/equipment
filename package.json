@@ -13,7 +13,8 @@
   },
   "scripts": {
     "build": "webpack --config webpack.js --mode=production",
-    "start": "webpack-dev-server --hot --open --config webpack.js --mode=development"
+    "start": "webpack-dev-server --hot --open --config webpack.js --mode=development",
+    "lint": "eslint src/"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
