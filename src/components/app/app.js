@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
+import PageContent from '../page-content/page-content';
 
 const App = () => {
-  console.log('We did it!')
-  return (
-    <div>
-      <p>Hello, World!</p>
-    </div>
-  )
+    return (
+        <div className="container">
+            <PageContent />
+        </div>
+    );
 }
 
 export default App
