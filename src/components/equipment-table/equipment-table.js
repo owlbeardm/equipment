@@ -1,4 +1,5 @@
 import React from 'react';
+import './equipment-table.css'
 import EquipmentTableRow from './equipment-table-row';
 import EquipmentTableHeader from './equipment-table-header';
 
@@ -41,7 +42,7 @@ export default class EquipmentTable extends React.Component {
 
         return (
             <div className="table-responsive">
-                <table className="money-table table">
+                <table className="equipment-table table">
                     <EquipmentTableHeader />
                     <tbody>
                         {content}

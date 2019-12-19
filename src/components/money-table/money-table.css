@@ -6,6 +6,7 @@
 .money-table th {
     background-color: #ca945c;
     border: none;
+    cursor: pointer;
 }
 
 .money-table td {
