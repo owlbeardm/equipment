@@ -1,18 +1,17 @@
-import React from 'react';
+import React from 'react'
 import './page-content.css'
-import ControlsPanel from '../controls-panel/controls-panel';
-import MoneyTable from '../money-table/money-table';
-import EquipmentTable from '../equipment-table/equipment-table';
+import ControlsPanel from '../controls-panel/controls-panel'
+import MoneyTable from '../money-table/money-table'
+import EquipmentTable from '../equipment-table/equipment-table'
 
 const PageContent = () => {
-
-    return (
-        <div className="page-content jumbotron">
-            <ControlsPanel />
-            <MoneyTable />
-            <EquipmentTable />
-        </div>
-    );
+  return (
+    <div className="page-content jumbotron">
+      <ControlsPanel />
+      <MoneyTable />
+      <EquipmentTable />
+    </div>
+  )
 }
 
-export default PageContent;
+export default PageContent
