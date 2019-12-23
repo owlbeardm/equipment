@@ -2,6 +2,7 @@ import React from 'react'
 import './equipment-table.css'
 import EquipmentTableRow from './equipment-table-row'
 import EquipmentTableHeader from './equipment-table-header'
+import CardWithHeader from '../card-with-header'
 
 export default class EquipmentTable extends React.Component {
     state = {
@@ -40,14 +41,16 @@ export default class EquipmentTable extends React.Component {
       })
 
       return (
-        <div className="table-responsive">
-          <table className="equipment-table table">
-            <EquipmentTableHeader />
-            <tbody>
-              {content}
-            </tbody>
-          </table>
-        </div>
+        <CardWithHeader headerLabel="Equipment">
+          <div className="table-responsive">
+            <table className="equipment-table table">
+              <EquipmentTableHeader />
+              <tbody>
+                {content}
+              </tbody>
+            </table>
+          </div>
+        </CardWithHeader>
       )
     }
 }

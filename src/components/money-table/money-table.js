@@ -2,6 +2,7 @@ import React from 'react'
 import './money-table.css'
 import MoneyTableHeader from './money-table-header'
 import MoneyTableRow from './money-table-row'
+import CardWithHeader from '../card-with-header'
 
 export default class MoneyTable extends React.Component {
     state = {
@@ -45,7 +46,14 @@ export default class MoneyTable extends React.Component {
             0.1 * silver.value +
             0.01 * copper.value
 
-      const tableBody = isHidden ? null : (
+      const headerLabel = (
+        <a href="#">
+          Money
+          <i className="float-right fas fa-chevron-down expanded-flip"></i>
+        </a>
+      )
+
+      const tableBody = (
         <tbody>
           <MoneyTableRow {...platinum} />
           <MoneyTableRow {...gold} />
@@ -55,12 +63,13 @@ export default class MoneyTable extends React.Component {
       )
 
       return (
-        <div className="table-responsive">
-          <table className="money-table table">
-            <MoneyTableHeader totalAmount={totalAmount} hidden={isHidden} toggleHidden={this.toggleHidden} />
-            {tableBody}
-          </table>
-        </div>
+        <CardWithHeader headerLabel={headerLabel}>
+          <div className="card-body">
+            <table className="money-table table table-sm">
+              {tableBody}
+            </table>
+          </div>
+        </CardWithHeader>
       )
     }
 }

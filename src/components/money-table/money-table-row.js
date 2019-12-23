@@ -5,8 +5,7 @@ const MoneyTableRow = ({ label, value, unit }) => {
     <tr>
       <td>{label}</td>
       <td className="align-right">{value + unit}</td>
-      <td><i className="fas fa-edit"></i></td>
-      <td><i className="fas fa-trash"></i></td>
+      <td><i className="push-shadow float-right text-primary fas fa-edit"></i></td>
     </tr>
   )
 }

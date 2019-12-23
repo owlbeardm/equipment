@@ -8,8 +8,8 @@ const EquipmentTableHeader = () => {
         {/* <th>Slot</th> */}
         <th>Value</th>
         <th>Weight</th>
-        <th className="align-right small-width"></th>
-        <th className="align-right small-width"></th>
+        <th className="align-right"></th>
+        <th className="align-right"></th>
       </tr>
     </thead>
   )

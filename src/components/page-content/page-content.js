@@ -6,10 +6,12 @@ import EquipmentTable from '../equipment-table/equipment-table'
 
 const PageContent = () => {
   return (
-    <div className="page-content jumbotron">
-      <ControlsPanel />
-      <MoneyTable />
-      <EquipmentTable />
+    <div className="page-content card">
+      <div className="card-body">
+        <ControlsPanel />
+        <MoneyTable />
+        <EquipmentTable />
+      </div>
     </div>
   )
 }

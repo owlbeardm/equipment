@@ -7,8 +7,8 @@ const EquipmentTableRow = ({ name, slot, value, weight }) => {
       {/* <td>{slot}</td> */}
       <td>{value}</td>
       <td>{weight}</td>
-      <td><i className="fas fa-edit"></i></td>
-      <td><i className="fas fa-trash"></i></td>
+      <td><i className="push-shadow float-right text-primary fas fa-edit"></i></td>
+      <td><i className="push-shadow text-danger fas fa-trash"></i></td>
     </tr>
   )
 }
