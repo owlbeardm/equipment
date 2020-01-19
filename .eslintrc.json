@@ -1,4 +1,16 @@
 {
-	"extends": ["standard", "react-app", "plugin:jsx-a11y/recommended"],
-	"plugins": ["jsx-a11y"]
+	"extends": [
+		"standard",
+		"react-app",
+		"plugin:jsx-a11y/recommended"
+	],
+	"plugins": [
+		"jsx-a11y"
+	],
+	"rules": {
+		"space-before-function-paren": [
+			"error",
+			"ignore"
+		]
+	}
 }

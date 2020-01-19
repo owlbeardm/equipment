@@ -1,4 +1,5 @@
 h4 a {
+  transition: .4s;
   color: #343a40;
 }
 

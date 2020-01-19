@@ -1,5 +1,7 @@
-table>thead th.align-right, table>tbody td.align-right {
-    text-align: right;
-    padding-right: 1rem; 
+.money-table-header .card-header {
+  cursor: pointer;
 }
 
+i.fas {
+  line-height: inherit;
+}
