@@ -1,7 +1,7 @@
 import React from 'react'
 
 const EquipmentRow = (props) => {
-  const { id, name, slot, cost, weight } = props
+  const { id, name, cost, weight } = props
   return (
     <div className="flex-row" key={id}>
       <div className="flex-cell first">

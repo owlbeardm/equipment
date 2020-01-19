@@ -7,7 +7,8 @@ const MoneyTableHeader = (props) => {
   return (
 
     <div className="money-table-header card-with-header card card-plain">
-      <div className="card-header card-header-primary d-flex justify-content-between"
+      <div role="presentation"
+        className="card-header card-header-primary d-flex justify-content-between"
         onClick={toggleHidden}
       >
         <h4 className="mb-0 text-dark flex-grow-1">Money</h4>

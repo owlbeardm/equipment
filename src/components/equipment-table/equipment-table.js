@@ -22,7 +22,7 @@ export default class EquipmentTable extends React.Component {
       },
       {
         id: 2,
-        name: "Ring of Energy Resistance, greater",
+        name: 'Ring of Energy Resistance, greater',
         slot: 'hand',
         cost: '44000gp',
         weight: 'small'
