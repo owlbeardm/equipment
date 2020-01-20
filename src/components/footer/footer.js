@@ -7,8 +7,8 @@ const Footer = () => {
     <footer className="footer">
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md">
-            <nav className="float-md-left">
+          <div className="col-lg">
+            <nav className="float-lg-left">
               <ul>
                 <li>
                   <a href="https://github.com/owlbeardm/scrollbear">GitHub</a>
@@ -25,14 +25,16 @@ const Footer = () => {
               </ul>
             </nav>
           </div>
-          <div className="col-md-auto">
-            <div className="copyright float-sm-right">
+          <div className="col-lg-auto">
+            <div className="copyright float-lg-right">
               <div className="row">
-                <div className="col-md-auto pr-1">
-                  <span>2020 © Nadzeya Ivashchanka & Mikita Kukavenka,</span>
+                <div className="col-lg-auto pr-1">
+                  <span>© Nadzeya Ivashchanka & Mikita Kukavenka,</span>
                 </div>
-                <div className="col-md pl-0">
-                  <a href="https://owlbeardm.com/" rel="noreferrer" target="_blank">OwlbearDM</a><span>, {version}</span>
+                <div className="col-lg pl-0">
+                  <span>2020, </span>
+                  <a href="https://owlbeardm.com/" rel="noopener noreferrer" target="_blank">OwlbearDM</a>
+                  <span>, {version}</span>
                 </div>
               </div>
             </div>
