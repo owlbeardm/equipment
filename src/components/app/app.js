@@ -1,10 +1,13 @@
 import React from 'react'
+import './app.css'
+import PageContent from '../page-content/page-content'
 
 const App = () => {
-  console.log('We did it!')
   return (
-    <div>
-      <p>Hello, World!</p>
+    <div className="container">
+      {/* header */}
+      <PageContent />
+      {/* footer */}
     </div>
   )
 }
