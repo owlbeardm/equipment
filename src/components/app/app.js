@@ -1,11 +1,13 @@
 import React from 'react'
-import Footer from '../footer'
+import './app.css'
+import PageContent from '../page-content/page-content'
 
 const App = () => {
   return (
-    <div>
-      <p>Hello, World!</p>
-      <Footer />
+    <div className="container">
+      {/* header */}
+      <PageContent />
+      {/* footer */}
     </div>
   )
 }

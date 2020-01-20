@@ -9,5 +9,15 @@
 	],
 	"globals": {
 		"APP_VERSION": "readonly"
+	},
+	"rules": {
+		"space-before-function-paren": [
+			"error",
+			{
+				"anonymous": "ignore",
+				"named": "ignore",
+				"asyncArrow": "ignore"
+			}
+		]
 	}
 }

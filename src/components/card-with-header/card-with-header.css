@@ -1,0 +1,8 @@
+h4 a {
+  transition: .4s;
+  color: #343a40;
+}
+
+h4 a:hover, h4 a:focus {
+  color: #464e56;
+}

@@ -1,0 +1,38 @@
+.flex-row {
+  display: flex;
+  align-items: center;
+  border-top: solid 1px #ddd;
+}
+
+.flex-cell {
+  padding: 0.5rem;
+  font-size: 0.9em;
+}
+
+.first {
+  flex-grow: 1;
+  font-size: 1em;
+}
+
+.fixed-width {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.basis-1 {
+  flex-basis: content;
+}
+
+.basis-3 {
+  flex-basis: 3rem;
+}
+
+@media all and (max-width: 430px) {
+  .flex-row {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .first {
+    width: 100%
+  }
+}
