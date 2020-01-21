@@ -7,6 +7,9 @@
 	"plugins": [
 		"jsx-a11y"
 	],
+	"globals": {
+		"APP_VERSION": "readonly"
+	},
 	"rules": {
 		"space-before-function-paren": [
 			"error",
