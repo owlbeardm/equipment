@@ -5,9 +5,11 @@ import Footer from '../footer'
 
 const App = () => {
   return (
-    <div className="container">
-      {/* header */}
-      <PageContent />
+    <div>
+      <div className="container">
+        {/* header */}
+        <PageContent />
+      </div>
       <Footer />
     </div>
   )
