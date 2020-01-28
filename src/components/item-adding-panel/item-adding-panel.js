@@ -2,10 +2,26 @@ import React from 'react'
 import './item-adding-panel.css'
 import Input from '../input'
 import Select from '../select'
+import Checkbox from '../checkbox'
 
 const ItemAddingPanel = ({ onAddingSubmit, onAddingCancel }) => {
-  const weightOptions = ['small', 1, 2, 3, 4, 5]
-  const slotOptions = ['-', 'head', 'body', 'armour', 'weapon']
+  const slotOptions = [
+    'slotless',
+    'weapon',
+    'armor',
+    'belt',
+    'body',
+    'chest',
+    'eyes',
+    'feet',
+    'hands',
+    'ring',
+    'head',
+    'headband',
+    'neck',
+    'shoulders',
+    'wrists'
+  ]
 
   return (
 
@@ -30,17 +46,29 @@ const ItemAddingPanel = ({ onAddingSubmit, onAddingCancel }) => {
             <div className="col-md">
               <Input name={'Cost in gp'} validation={'unchecked'} />
             </div>
-            <div className="col-md">
-              <Select
-                name={'Weight'}
-                options={weightOptions}
-              />
-            </div>
+
             <div className="col-md">
               <Select
                 name={'Slot'}
                 options={slotOptions}
               />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md">
+              <Input name={'Weight'} />
+            </div>
+
+            <div className="col-md ">
+              <div className="row">
+                <div className="col">
+                  <Checkbox label="Light" />
+                </div>
+                <div className="col">
+                  <Checkbox label="Negligible" />
+                </div>
+              </div>
             </div>
           </div>
 

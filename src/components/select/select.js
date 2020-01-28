@@ -15,6 +15,7 @@ const Select = ({ name, options }) => {
       </label>
 
       <select className="form-control" id={name}>
+        <option key={'_empty'}>{''}</option>
         {selectOptions}
       </select>
     </div>

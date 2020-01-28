@@ -4,6 +4,7 @@ import ControlsPanel from '../controls-panel/controls-panel'
 import MoneyTable from '../money-table/money-table'
 import EquipmentTable from '../equipment-table/equipment-table'
 import ItemAddingPanel from '../item-adding-panel'
+import Checkbox from '../checkbox'
 
 const PageContent = () => {
   const [adding, setAdding] = useState(false)
