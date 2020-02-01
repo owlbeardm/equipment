@@ -1,9 +1,9 @@
 import React from 'react'
 
 const MoneyTableHeader = (props) => {
-  const { totalAmount, isVisible, toggleHidden } = props
-  const actionArrow = isVisible ? 'down' : 'up'
-  const content = isVisible ? props.children : null
+  const { totalAmount, isHidden, toggleHidden } = props
+  const actionArrow = isHidden ? 'down' : 'up'
+  // const content = isHidden ? props.children
   return (
 
     <div className="money-table-header card-with-header card card-plain">
@@ -15,7 +15,7 @@ const MoneyTableHeader = (props) => {
         <h4 className="mb-0 text-dark">Total: {totalAmount}gp</h4>
         <i className={`mb-0 text-dark pl-2 fas fa-chevron-${actionArrow}`}></i>
       </div>
-      {content}
+      {!isHidden && props.children}
     </div>
 
   )
