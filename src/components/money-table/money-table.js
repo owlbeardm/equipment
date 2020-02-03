@@ -1,67 +1,53 @@
 import React from 'react'
 import './money-table.css'
+import { connect } from 'react-redux'
+
 import MoneyTableHeader from './money-table-header'
 import MoneyTableRow from './money-table-row'
 
-export default class MoneyTable extends React.Component {
-  state = {
-    data: {
-      platinum: {
-        label: 'Platinum',
-        value: 2,
-        unit: 'pp'
-      },
-      gold: {
-        label: 'Gold',
-        value: 2670,
-        unit: 'gp'
-      },
-      silver: {
-        label: 'Silver',
-        value: 500,
-        unit: 'sp'
-      },
-      copper: {
-        label: 'Copper',
-        value: 0,
-        unit: 'cp'
-      }
-    },
-    hidden: false
-  };
+const MoneyTable = ({ data, hidden, toggleHidden }) => {
+  const { platinum, gold, silver, copper } = data
 
-  toggleHidden = () => {
-    this.setState((state) => {
-      return { hidden: !state.hidden }
-    })
-  }
+  const totalAmount = 10 * platinum.value +
+    gold.value +
+    0.1 * silver.value +
+    0.01 * copper.value
 
-  render() {
-    const { platinum, gold, silver, copper } = this.state.data
-    const isVisible = this.state.hidden
+  const tableBody = (
+    <tbody>
+      <MoneyTableRow {...platinum} />
+      <MoneyTableRow {...gold} />
+      <MoneyTableRow {...silver} />
+      <MoneyTableRow {...copper} />
+    </tbody>
+  )
 
-    const totalAmount = 10 * platinum.value +
-      gold.value +
-      0.1 * silver.value +
-      0.01 * copper.value
+  return (
+    <MoneyTableHeader totalAmount={totalAmount} isHidden={hidden} toggleHidden={toggleHidden} >
+      <div className="card-body">
+        <table className="money-table table table-sm">
+          {tableBody}
+        </table>
+      </div>
+    </MoneyTableHeader>
+  )
+}
 
-    const tableBody = (
-      <tbody>
-        <MoneyTableRow {...platinum} />
-        <MoneyTableRow {...gold} />
-        <MoneyTableRow {...silver} />
-        <MoneyTableRow {...copper} />
-      </tbody>
-    )
-
-    return (
-      <MoneyTableHeader totalAmount={totalAmount} isVisible={isVisible} toggleHidden={this.toggleHidden}>
-        <div className="card-body">
-          <table className="money-table table table-sm">
-            {tableBody}
-          </table>
-        </div>
-      </MoneyTableHeader>
-    )
+const mapStateToProps = ({ main: { money } }) => {
+  return {
+    data: money.data,
+    hidden: money.hidden
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleHidden: () => {
+      dispatch({
+        type: 'TOGGLE_HIDDEN'
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoneyTable)
