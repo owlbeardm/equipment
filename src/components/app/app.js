@@ -5,13 +5,13 @@ import Footer from '../footer'
 
 const App = () => {
   return (
-    <div>
+    <main className="app">
       <div className="container">
         {/* header */}
         <PageContent />
       </div>
       <Footer />
-    </div>
+    </main>
   )
 }
 
