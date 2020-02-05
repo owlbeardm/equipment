@@ -6,8 +6,8 @@ import Footer from '../footer'
 const App = () => {
   return (
     <div>
+      {/* header */}
       <div className="container">
-        {/* header */}
         <PageContent />
       </div>
       <Footer />

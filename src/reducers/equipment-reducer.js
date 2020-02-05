@@ -15,6 +15,14 @@ const updateEquipmentTable = (state, action) => {
   }
 
   switch (action.type) {
+    case 'ITEM_ADD_TO_LIST':
+      return {
+        data: [
+          ...state.equipment.data,
+          action.payload
+        ]
+      }
+
     default:
       return state.equipment
   }
