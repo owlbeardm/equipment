@@ -3,7 +3,8 @@ import './item-adding-panel.css'
 import Input from '../input'
 import Select from '../select'
 import Checkbox from '../checkbox'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { connect } from 'react-redux'
 
 const required = value => (value || typeof value === 'number' ? undefined : 'This field is required')
 
@@ -14,7 +15,9 @@ const onlyNumbers = (value) => {
   return value.replace(/[^\d]/g, '')
 }
 
-const ItemAddingPanel = (props) => {
+const nullToEmpty = value => (value === '0') ? '' : value
+
+let ItemAddingPanel = (props) => {
   const SLOT_OPTIONS = [
     'slotless',
     'weapon',
@@ -33,7 +36,7 @@ const ItemAddingPanel = (props) => {
     'wrists'
   ]
 
-  const { handleSubmit, handleCancel } = props
+  const { handleSubmit, handleCancel, weight, light, negligible } = props
 
   return (
 
@@ -47,12 +50,13 @@ const ItemAddingPanel = (props) => {
       </div>
 
       <div className="card-body">
-        <form name="addItemForm" onSubmit={handleSubmit}>
+        <form name="addItemForm" onSubmit={handleSubmit} autoComplete="off">
           <div className="row">
             <div className="col">
               <Field
                 name='name'
                 label='Name'
+                type='text'
                 component={Input}
                 validate={required}
               />
@@ -64,6 +68,7 @@ const ItemAddingPanel = (props) => {
               <Field
                 name='costInGp'
                 label='Cost in gp'
+                type='tel'
                 component={Input}
                 normalize={onlyNumbers}
               />
@@ -84,18 +89,31 @@ const ItemAddingPanel = (props) => {
               <Field
                 name='weight'
                 label='Weight'
+                type='tel'
                 component={Input}
                 normalize={onlyNumbers}
+                format={nullToEmpty}
+                disabled={(light || negligible) && 'disabled'}
               />
             </div>
 
             <div className="col-md ">
               <div className="row">
                 <div className="col">
-                  <Field name='light' label='Light' component={Checkbox} />
+                  <Field
+                    name='light'
+                    label='Light'
+                    component={Checkbox}
+                    disabled={(weight || negligible) && 'disabled'}
+                  />
                 </div>
                 <div className="col">
-                  <Field name='negligible' label='Negligible' component={Checkbox} />
+                  <Field
+                    name='negligible'
+                    label='Negligible'
+                    component={Checkbox}
+                    disabled={(weight || light) && 'disabled'}
+                  />
                 </div>
               </div>
             </div>
@@ -126,6 +144,13 @@ const ItemAddingPanel = (props) => {
   )
 }
 
-export default reduxForm({
+// Decorate with redux-form
+ItemAddingPanel = reduxForm({
   form: 'itemAddingForm'
 })(ItemAddingPanel)
+
+// Decorate with connect to read form values
+const selector = formValueSelector('itemAddingForm')
+ItemAddingPanel = connect(state => selector(state, 'weight', 'light', 'negligible'))(ItemAddingPanel)
+
+export default ItemAddingPanel

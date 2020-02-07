@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Checkbox = ({ input, label }) => {
+const Checkbox = ({ input, label, disabled }) => {
   const name = input.name
 
   return (
@@ -8,9 +8,11 @@ const Checkbox = ({ input, label }) => {
       <div className="form-check">
         <label className="form-check-label text-dark">
           <input
+            {...input}
             name={name}
             type="checkbox"
             className="form-check-input"
+            disabled={disabled}
           />
 
           {label}
