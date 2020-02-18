@@ -137,10 +137,8 @@ ItemAddingPanel = reduxForm({
 // Decorate with connect to read form values
 const selector = formValueSelector('itemAddingForm')
 ItemAddingPanel = connect(state => {
-  console.log(state)
-  const sth = selector(state, 'weightRadio')
-  console.log('sth', sth)
-  return { weightRadio: sth }
+  const weightRadio = selector(state, 'weightRadio')
+  return { weightRadio }
 })(ItemAddingPanel)
 
 export default ItemAddingPanel
