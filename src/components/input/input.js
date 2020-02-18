@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({ input, label, disabled, meta: { touched, pristine, valid, invalid, error } }) => {
+const Input = ({ input, type, label, disabled, meta: { touched, pristine, valid, invalid, error } }) => {
   const name = input.name
 
   const validClass = touched && !pristine && valid ? 'has-success' : ''
@@ -16,6 +16,7 @@ const Input = ({ input, label, disabled, meta: { touched, pristine, valid, inval
       <input
         {...input}
         id={name}
+        type={type}
         className="form-control"
         disabled={disabled}
       />

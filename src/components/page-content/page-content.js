@@ -13,21 +13,32 @@ const PageContent = ({ itemAddToList }) => {
     setAdding(true)
   }
 
-  const onAddingSubmit = (value) => {
+  const onAddingSubmit = ({ name, costInGp, slot = 'slotless', weight, weightRadio = '' }) => {
     console.log('adding is successfully done')
 
-    const weight = value.light ? 'light'
-      : value.negligible ? 'negligible'
-        : value.weight ? value.weight + '\xa0bulk' : ''
+    let weightValue = weightRadio
 
-    const cost = value.costInGp ? value.costInGp + '\xa0gp' : ''
+    if (weightValue === 'bulk') {
+      switch (weight) {
+        case '0':
+          weightValue = 'negligible'
+          break
+        case '1':
+          weightValue = '1\xa0bulk'
+          break
+        default:
+          weightValue = weight + '\xa0bulks'
+      }
+    }
+
+    const costValue = costInGp ? costInGp + '\xa0gp' : ''
 
     itemAddToList({
       id: Math.random() * 10,
-      name: value.name,
-      slot: value.nlot,
-      cost: cost,
-      weight: weight
+      name: name,
+      slot: slot,
+      cost: costValue,
+      weight: weightValue
     })
     setAdding(false)
   }

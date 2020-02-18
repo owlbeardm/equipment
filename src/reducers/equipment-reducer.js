@@ -6,8 +6,8 @@ const updateEquipmentTable = (state, action) => {
         {
           id: 0,
           name: 'Traveler kit',
-          slot: '',
-          cost: '1gp',
+          slot: 'slotless',
+          cost: '1\xa0gp',
           weight: 'light'
         }
       ]

@@ -2,41 +2,36 @@ import React from 'react'
 import './item-adding-panel.css'
 import Input from '../input'
 import Select from '../select'
-import Checkbox from '../checkbox'
+import { Radio, RadioGroup } from '../radio'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 
 const required = value => (value || typeof value === 'number' ? undefined : 'This field is required')
 
-const onlyNumbers = (value) => {
-  if (!value) {
-    return value
-  }
-  return value.replace(/[^\d]/g, '')
-}
+const decimal = value => (!value || value.match(/^(0|([1-9]\d*))(\.\d{1,2})?$/) ? undefined : 'The value must be decimal')
 
-const nullToEmpty = value => (value === '0') ? '' : value
+const whole = value => (!value || value.match(/^[1-9]\d*$/) ? undefined : 'The value must be an integer')
+
+const SLOT_OPTIONS = [
+  'slotless',
+  'weapon',
+  'armor',
+  'belt',
+  'body',
+  'chest',
+  'eyes',
+  'feet',
+  'hands',
+  'ring',
+  'head',
+  'headband',
+  'neck',
+  'shoulders',
+  'wrists'
+]
 
 let ItemAddingPanel = (props) => {
-  const SLOT_OPTIONS = [
-    'slotless',
-    'weapon',
-    'armor',
-    'belt',
-    'body',
-    'chest',
-    'eyes',
-    'feet',
-    'hands',
-    'ring',
-    'head',
-    'headband',
-    'neck',
-    'shoulders',
-    'wrists'
-  ]
-
-  const { handleSubmit, handleCancel, weight, light, negligible } = props
+  const { handleSubmit, handleCancel, weightRadio } = props
 
   return (
 
@@ -68,9 +63,9 @@ let ItemAddingPanel = (props) => {
               <Field
                 name='costInGp'
                 label='Cost in gp'
-                type='tel'
+                type='number'
                 component={Input}
-                normalize={onlyNumbers}
+                validate={decimal}
               />
             </div>
 
@@ -85,39 +80,29 @@ let ItemAddingPanel = (props) => {
           </div>
 
           <div className="row">
-            <div className="col-md">
-              <Field
-                name='weight'
-                label='Weight'
-                type='tel'
-                component={Input}
-                normalize={onlyNumbers}
-                format={nullToEmpty}
-                disabled={(light || negligible) && 'disabled'}
-              />
-            </div>
-
-            <div className="col-md ">
-              <div className="row">
-                <div className="col">
-                  <Field
-                    name='light'
-                    label='Light'
-                    component={Checkbox}
-                    disabled={(weight || negligible) && 'disabled'}
-                  />
-                </div>
-                <div className="col">
-                  <Field
-                    name='negligible'
-                    label='Negligible'
-                    component={Checkbox}
-                    disabled={(weight || light) && 'disabled'}
-                  />
-                </div>
-              </div>
+            <div className="col">
+              <Field name='weightRadio' component={RadioGroup} >
+                <Radio value='light' label='Light' />
+                <Radio value='negligible' label='Negligible' />
+                <Radio value='bulk' label='Bulk' />
+              </Field>
             </div>
           </div>
+
+          {(weightRadio === 'bulk') &&
+
+            <div className="row">
+              <div className="col">
+                <Field
+                  name='weight'
+                  label='Weight'
+                  type='number'
+                  component={Input}
+                  validate={[required, whole]}
+                />
+              </div>
+            </div>
+          }
 
           <div className="row">
             <div className="col-md">
@@ -151,6 +136,11 @@ ItemAddingPanel = reduxForm({
 
 // Decorate with connect to read form values
 const selector = formValueSelector('itemAddingForm')
-ItemAddingPanel = connect(state => selector(state, 'weight', 'light', 'negligible'))(ItemAddingPanel)
+ItemAddingPanel = connect(state => {
+  console.log(state)
+  const sth = selector(state, 'weightRadio')
+  console.log('sth', sth)
+  return { weightRadio: sth }
+})(ItemAddingPanel)
 
 export default ItemAddingPanel
