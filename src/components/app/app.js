@@ -6,15 +6,9 @@ import Header from '../header'
 
 const App = () => {
   return (
-<<<<<<< HEAD
-    <div>
-      {/* header */}
-      <div className="container">
-=======
     <div className="main-panel">
       <Header />
       <div className="content container">
->>>>>>> #22 added basic header
         <PageContent />
       </div>
       <Footer />
