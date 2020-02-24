@@ -11,7 +11,7 @@ const Footer = () => {
             <nav className="float-lg-left">
               <ul>
                 <li>
-                  <a href="https://github.com/owlbeardm/scrollbear">GitHub</a>
+                  <a href="https://github.com/owlbeardm/equipment">GitHub</a>
                 </li>
                 <li>
                   <a href="https://twitter.com/OwlbearDm">Twitter</a>
