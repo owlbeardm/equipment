@@ -23,8 +23,35 @@ const updateEquipmentTable = (state, action) => {
         ]
       }
 
+    case 'ITEM_REMOVE_FROM_LIST':
+      return {
+        data: updateOrRemoveItem(state.equipment.data, 'remove', action.payload)
+      }
+
     default:
       return state.equipment
+  }
+}
+
+const updateOrRemoveItem = (data, operation, itemId, newItemData) => {
+  const idx = data.findIndex((elem) => elem.id === itemId)
+
+  if (idx < 0) return data
+
+  switch (operation) {
+    case 'update':
+      return [
+        ...data.slice(0, idx),
+        newItemData,
+        ...data.slice(idx + 1)
+      ]
+    case 'remove':
+      return [
+        ...data.slice(0, idx),
+        ...data.slice(idx + 1)
+      ]
+    default:
+      return data
   }
 }
 

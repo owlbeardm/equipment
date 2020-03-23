@@ -4,9 +4,9 @@ import './equipment-table.css'
 import CardWithHeader from '../card-with-header'
 import EquipmentRow from './equipment-row'
 
-const EquipmentTable = ({ data }) => {
+const EquipmentTable = ({ data, itemRemoveFromList }) => {
   const content = data.map((elem) => {
-    return <EquipmentRow key={elem.id} {...elem} />
+    return <EquipmentRow key={elem.id} {...elem} onRemove={itemRemoveFromList} />
   })
 
   return (
@@ -22,4 +22,15 @@ const mapStateToProps = ({ main: { equipment } }) => {
   }
 }
 
-export default connect(mapStateToProps)(EquipmentTable)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    itemRemoveFromList: (value) => {
+      dispatch({
+        type: 'ITEM_REMOVE_FROM_LIST',
+        payload: value
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EquipmentTable)
