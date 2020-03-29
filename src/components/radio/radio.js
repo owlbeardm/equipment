@@ -11,6 +11,7 @@ const Radio = (props) => {
           id={value}
           value={value}
           type="radio"
+          checked={input.value === value}
           className="form-check-input"
         />
 

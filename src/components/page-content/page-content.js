@@ -3,66 +3,78 @@ import './page-content.css'
 import ControlsPanel from '../controls-panel/controls-panel'
 import MoneyTable from '../money-table/money-table'
 import EquipmentTable from '../equipment-table/equipment-table'
-import ItemAddingPanel from '../item-adding-panel'
+import InventoryItemPanel from '../inventory-item-panel'
 import { connect } from 'react-redux'
 
-const PageContent = ({ itemAddToList }) => {
-  const [adding, setAdding] = useState(false)
+const makeEquipmentItem = (itemId, { name, costInGp, slot = 'slotless', weight, weightRadio = 'negligible' }) => {
+  return {
+    id: itemId,
+    name: name,
+    slot: slot,
+    costInGp: parseFloat(costInGp) || 0,
+    weight: parseInt(weight) || 0,
+    weightRadio: weightRadio
+  }
+}
+
+const generateId = () => {
+  // TO DO: make it better
+  return Math.random() * 10
+}
+
+const PageContent = ({ editingItem, setEditingItem, itemAddToList, itemEditData }) => {
+  const [view, setView] = useState('mainView')
 
   const onAdding = () => {
-    setAdding(true)
+    setView('addingView')
   }
 
-  const onAddingSubmit = ({ name, costInGp, slot = 'slotless', weight, weightRadio = '' }) => {
-    console.log('adding is successfully done')
-
-    let weightValue = weightRadio
-
-    if (weightValue === 'bulk') {
-      switch (weight) {
-        case '0':
-          weightValue = 'negligible'
-          break
-        case '1':
-          weightValue = '1\xa0bulk'
-          break
-        default:
-          weightValue = weight + '\xa0bulks'
-      }
-    }
-
-    const costValue = costInGp ? costInGp + '\xa0gp' : ''
-
-    itemAddToList({
-      id: Math.random() * 10,
-      name: name,
-      slot: slot,
-      cost: costValue,
-      weight: weightValue
-    })
-    setAdding(false)
+  const onEditing = (itemId) => {
+    setEditingItem(itemId)
+    setView('editingView')
   }
 
-  const onAddingCancel = () => {
-    console.log('adding was skipped =(')
-    setAdding(false)
+  const onAddingSubmit = (formValues) => {
+    itemAddToList(makeEquipmentItem(generateId(), formValues))
+    setView('mainView')
+  }
+
+  const onEditingSubmit = (formValues) => {
+    itemEditData(makeEquipmentItem(editingItem, formValues))
+    setView('mainView')
+  }
+
+  const onCancel = () => {
+    setEditingItem(null)
+    setView('mainView')
   }
 
   let content
 
-  if (adding) {
-    content = <ItemAddingPanel
-      onSubmit={onAddingSubmit}
-      handleCancel={onAddingCancel}
-    />
-  } else {
-    content = (
-      <div className="card-body">
-        <ControlsPanel onAdding={onAdding} />
-        <MoneyTable />
-        <EquipmentTable />
-      </div>
-    )
+  switch (view) {
+    case 'addingView':
+      content = <InventoryItemPanel
+        operation='add'
+        onSubmit={onAddingSubmit}
+        handleCancel={onCancel}
+      />
+      break
+    case 'editingView':
+      content = <InventoryItemPanel
+        operation='edit'
+        onSubmit={onEditingSubmit}
+        handleCancel={onCancel}
+      />
+      break
+    case 'mainView':
+    default:
+      content = (
+        <div className="card-body">
+          <ControlsPanel onAdding={onAdding} />
+          <MoneyTable />
+          <EquipmentTable onEditing={(id) => onEditing(id)} />
+        </div>
+      )
   }
 
   return (
@@ -72,6 +84,12 @@ const PageContent = ({ itemAddToList }) => {
   )
 }
 
+const mapStateToProps = ({ main: { equipment } }) => {
+  return {
+    editingItem: equipment.editingItem
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     itemAddToList: (value) => {
@@ -79,8 +97,20 @@ const mapDispatchToProps = (dispatch) => {
         type: 'ITEM_ADD_TO_LIST',
         payload: value
       })
+    },
+    itemEditData: (value) => {
+      dispatch({
+        type: 'ITEM_EDIT_DATA',
+        payload: value
+      })
+    },
+    setEditingItem: (value) => {
+      dispatch({
+        type: 'SET_EDITING_ITEM',
+        itemId: value
+      })
     }
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(PageContent)
+export default connect(mapStateToProps, mapDispatchToProps)(PageContent)
