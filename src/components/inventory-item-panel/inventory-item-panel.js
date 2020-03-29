@@ -1,5 +1,5 @@
 import React from 'react'
-import './item-adding-panel.css'
+import './inventory-item-panel.css'
 import Input from '../input'
 import Select from '../select'
 import { Radio, RadioGroup } from '../radio'
@@ -7,10 +7,9 @@ import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 
 const required = value => (value || typeof value === 'number' ? undefined : 'This field is required')
-
-const decimal = value => (!value || value.match(/^(0|([1-9]\d*))(\.\d{1,2})?$/) ? undefined : 'The value must be decimal')
-
-const whole = value => (!value || value.match(/^[1-9]\d*$/) ? undefined : 'The value must be an integer')
+const decimal = value => (!value || typeof value === 'number' || value.match(/^(0|([1-9]\d*))(\.\d{1,2})?$/) ? undefined : 'The value must be decimal')
+const whole = value => (!value || typeof value === 'number' || value.match(/^[0-9]\d*$/) ? undefined : 'The value must be an integer')
+const positive = value => (!value || value !== '0' ? undefined : 'The value must be above zero. You may choose "Negligible" option for small items')
 
 const SLOT_OPTIONS = [
   'slotless',
@@ -30,18 +29,35 @@ const SLOT_OPTIONS = [
   'wrists'
 ]
 
-let ItemAddingPanel = (props) => {
-  const { handleSubmit, handleCancel, weightRadio } = props
+let InventoryItemPanel = (props) => {
+  const { operation = 'add', handleSubmit, handleCancel, weightRadio } = props
+
+  let cardHeaderStyle, cardHeaderIcon, cardHeaderText, submitLabel
+
+  switch (operation) {
+    case 'edit':
+      cardHeaderStyle = 'warning'
+      cardHeaderIcon = 'create'
+      cardHeaderText = 'Edit existing item'
+      submitLabel = 'Save changes'
+      break
+    case 'add':
+    default:
+      cardHeaderStyle = 'success'
+      cardHeaderIcon = 'add_circle_outline'
+      cardHeaderText = 'Add item to inventory'
+      submitLabel = 'Add'
+  }
 
   return (
 
-    <div className="item-adding-panel">
+    <div className="inventory-item-panel">
 
-      <div className="card-header card-header-success card-header-icon">
+      <div className={`card-header card-header-${cardHeaderStyle} card-header-icon`}>
         <div className="card-icon p-2">
-          <i className="material-icons">add_circle_outline</i>
+          <i className="material-icons">{cardHeaderIcon}</i>
         </div>
-        <h3 className="header-text card-title">Add item to inventory</h3>
+        <h3 className="header-text card-title">{cardHeaderText}</h3>
       </div>
 
       <div className="card-body">
@@ -98,7 +114,7 @@ let ItemAddingPanel = (props) => {
                   label='Weight'
                   type='number'
                   component={Input}
-                  validate={[required, whole]}
+                  validate={[required, whole, positive]}
                 />
               </div>
             </div>
@@ -111,7 +127,7 @@ let ItemAddingPanel = (props) => {
                 className="btn btn-primary"
                 onClick={handleSubmit}
               >
-                Add
+                {submitLabel}
               </button>
               <button
                 type="button"
@@ -125,20 +141,25 @@ let ItemAddingPanel = (props) => {
         </form>
       </div>
     </div>
-
   )
 }
 
 // Decorate with redux-form
-ItemAddingPanel = reduxForm({
-  form: 'itemAddingForm'
-})(ItemAddingPanel)
+InventoryItemPanel = reduxForm({
+  form: 'inventoryItemForm'
+})(InventoryItemPanel)
 
-// Decorate with connect to read form values
-const selector = formValueSelector('itemAddingForm')
-ItemAddingPanel = connect(state => {
+const mapStateToProps = (state) => {
+  // Decorate with connect to read form values
+  const selector = formValueSelector('inventoryItemForm')
   const weightRadio = selector(state, 'weightRadio')
-  return { weightRadio }
-})(ItemAddingPanel)
 
-export default ItemAddingPanel
+  const { editingItem, data } = state.main.equipment
+
+  return {
+    weightRadio: weightRadio,
+    initialValues: data.find((elem) => elem.id === editingItem)
+  }
+}
+
+export default connect(mapStateToProps)(InventoryItemPanel)

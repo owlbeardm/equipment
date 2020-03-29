@@ -1,14 +1,16 @@
 const updateEquipmentTable = (state, action) => {
   if (state === undefined) {
     return {
+      editingItem: null,
       // TO DO: replace dummy initial state with empty Array
       data: [
         {
           id: 0,
           name: 'Traveler kit',
           slot: 'slotless',
-          cost: '1\xa0gp',
-          weight: 'light'
+          costInGp: 1,
+          weight: 0,
+          weightRadio: 'light'
         }
       ]
     }
@@ -17,6 +19,7 @@ const updateEquipmentTable = (state, action) => {
   switch (action.type) {
     case 'ITEM_ADD_TO_LIST':
       return {
+        ...state.equipment,
         data: [
           ...state.equipment.data,
           action.payload
@@ -25,8 +28,25 @@ const updateEquipmentTable = (state, action) => {
 
     case 'ITEM_REMOVE_FROM_LIST':
       return {
-        data: updateOrRemoveItem(state.equipment.data, 'remove', action.payload)
+        ...state.equipment,
+        data: updateOrRemoveItem(state.equipment.data, 'remove', action.itemId)
       }
+
+    case 'ITEM_EDIT_DATA': {
+      const itemId = action.payload.id
+      return {
+        ...state.equipment,
+        editingItem: null,
+        data: updateOrRemoveItem(state.equipment.data, 'update', itemId, action.payload)
+      }
+    }
+
+    case 'SET_EDITING_ITEM': {
+      return {
+        ...state.equipment,
+        editingItem: action.itemId
+      }
+    }
 
     default:
       return state.equipment

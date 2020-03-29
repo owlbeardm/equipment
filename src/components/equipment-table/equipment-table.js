@@ -4,9 +4,14 @@ import './equipment-table.css'
 import CardWithHeader from '../card-with-header'
 import EquipmentRow from './equipment-row'
 
-const EquipmentTable = ({ data, itemRemoveFromList }) => {
+const EquipmentTable = ({ data, itemRemoveFromList, onEditing }) => {
   const content = data.map((elem) => {
-    return <EquipmentRow key={elem.id} {...elem} onRemove={itemRemoveFromList} />
+    return <EquipmentRow
+      key={elem.id}
+      {...elem}
+      onEdit={(id) => onEditing(id)}
+      onRemove={itemRemoveFromList}
+    />
   })
 
   return (
@@ -27,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
     itemRemoveFromList: (value) => {
       dispatch({
         type: 'ITEM_REMOVE_FROM_LIST',
-        payload: value
+        itemId: value
       })
     }
   }
