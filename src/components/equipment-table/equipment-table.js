@@ -5,14 +5,19 @@ import CardWithHeader from '../card-with-header'
 import EquipmentRow from './equipment-row'
 import InventoryError from '../inventory-error'
 
-const EquipmentTable = ({ data, itemRemoveFromList }) => {
+const EquipmentTable = ({ data, itemRemoveFromList, onEditing }) => {
   let content
 
   if (data.length === 0) {
     content = <InventoryError errorMsg="Seems like your inventory is empty. Add the first item" />
   } else {
     content = data.map((elem) => {
-      return <EquipmentRow key={elem.id} {...elem} onRemove={itemRemoveFromList} />
+      return <EquipmentRow
+        key={elem.id}
+        {...elem}
+        onEdit={(id) => onEditing(id)}
+        onRemove={itemRemoveFromList}
+      />
     })
   }
 

@@ -3,7 +3,7 @@ import './page-content.css'
 import ControlsPanel from '../controls-panel/controls-panel'
 import MoneyTable from '../money-table/money-table'
 import EquipmentTable from '../equipment-table/equipment-table'
-import ItemAddingPanel from '../item-adding-panel'
+import InventoryItemPanel from '../inventory-item-panel'
 import { connect } from 'react-redux'
 
 const makeEquipmentItem = (itemId, { name, costInGp, slot = 'slotless', weight, weightRadio = 'negligible' }) => {
