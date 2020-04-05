@@ -1,6 +1,7 @@
 const updateEquipmentTable = (state, action) => {
   if (state === undefined) {
     return {
+      nextId: 0,
       editingItem: null,
       data: []
     }
@@ -10,9 +11,10 @@ const updateEquipmentTable = (state, action) => {
     case 'ITEM_ADD_TO_LIST':
       return {
         ...state.equipment,
+        nextId: state.equipment.nextId + 1,
         data: [
           ...state.equipment.data,
-          action.payload
+          makeNewItem(state.equipment.nextId, action.payload)
         ]
       }
 
@@ -23,11 +25,11 @@ const updateEquipmentTable = (state, action) => {
       }
 
     case 'ITEM_EDIT_DATA': {
-      const itemId = action.payload.id
+      const newItemData = makeNewItem(action.itemId, action.payload)
       return {
         ...state.equipment,
         editingItem: null,
-        data: updateOrRemoveItem(state.equipment.data, 'update', itemId, action.payload)
+        data: updateOrRemoveItem(state.equipment.data, 'update', action.itemId, newItemData)
       }
     }
 
@@ -62,6 +64,17 @@ const updateOrRemoveItem = (data, operation, itemId, newItemData) => {
       ]
     default:
       return data
+  }
+}
+
+const makeNewItem = (itemId, { name, costInGp, slot = 'slotless', weight, weightRadio = 'negligible' }) => {
+  return {
+    id: itemId,
+    name: name,
+    slot: slot,
+    costInGp: parseFloat(costInGp) || 0,
+    weight: parseInt(weight) || 0,
+    weightRadio: weightRadio
   }
 }
 
