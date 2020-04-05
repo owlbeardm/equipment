@@ -6,22 +6,6 @@ import EquipmentTable from '../equipment-table/equipment-table'
 import InventoryItemPanel from '../inventory-item-panel'
 import { connect } from 'react-redux'
 
-const makeEquipmentItem = (itemId, { name, costInGp, slot = 'slotless', weight, weightRadio = 'negligible' }) => {
-  return {
-    id: itemId,
-    name: name,
-    slot: slot,
-    costInGp: parseFloat(costInGp) || 0,
-    weight: parseInt(weight) || 0,
-    weightRadio: weightRadio
-  }
-}
-
-const generateId = () => {
-  // TO DO: make it better
-  return Math.random() * 10
-}
-
 const PageContent = ({ editingItem, setEditingItem, itemAddToList, itemEditData }) => {
   const [view, setView] = useState('mainView')
 
@@ -35,12 +19,12 @@ const PageContent = ({ editingItem, setEditingItem, itemAddToList, itemEditData 
   }
 
   const onAddingSubmit = (formValues) => {
-    itemAddToList(makeEquipmentItem(generateId(), formValues))
+    itemAddToList(formValues)
     setView('mainView')
   }
 
   const onEditingSubmit = (formValues) => {
-    itemEditData(makeEquipmentItem(editingItem, formValues))
+    itemEditData(editingItem, formValues)
     setView('mainView')
   }
 
@@ -98,9 +82,10 @@ const mapDispatchToProps = (dispatch) => {
         payload: value
       })
     },
-    itemEditData: (value) => {
+    itemEditData: (itemId, value) => {
       dispatch({
         type: 'ITEM_EDIT_DATA',
+        itemId: itemId,
         payload: value
       })
     },
