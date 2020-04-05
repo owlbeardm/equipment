@@ -9,7 +9,7 @@ const ControlsPanel = ({ onAdding }) => {
       >
         Add item
       </button>
-      <span>Total weight:{'\u2003'}5</span>
+      {/* <span>Total weight:{'\u2003'}5</span> */}
     </div>
   )
 }

@@ -71,7 +71,7 @@ const PageContent = ({ editingItem, setEditingItem, itemAddToList, itemEditData 
       content = (
         <div className="card-body">
           <ControlsPanel onAdding={onAdding} />
-          <MoneyTable />
+          {/* <MoneyTable /> */}
           <EquipmentTable onEditing={(id) => onEditing(id)} />
         </div>
       )
