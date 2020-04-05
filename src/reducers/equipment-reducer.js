@@ -2,17 +2,7 @@ const updateEquipmentTable = (state, action) => {
   if (state === undefined) {
     return {
       editingItem: null,
-      // TO DO: replace dummy initial state with empty Array
-      data: [
-        {
-          id: 0,
-          name: 'Traveler kit',
-          slot: 'slotless',
-          costInGp: 1,
-          weight: 0,
-          weightRadio: 'light'
-        }
-      ]
+      data: []
     }
   }
 

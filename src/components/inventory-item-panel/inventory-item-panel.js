@@ -146,7 +146,8 @@ let InventoryItemPanel = (props) => {
 
 // Decorate with redux-form
 InventoryItemPanel = reduxForm({
-  form: 'inventoryItemForm'
+  form: 'inventoryItemForm',
+  enableReinitialize: true
 })(InventoryItemPanel)
 
 const mapStateToProps = (state) => {
