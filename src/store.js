@@ -2,9 +2,14 @@ import { createStore, combineReducers } from 'redux'
 import dataReducer from './reducers'
 import { reducer as formReducer } from 'redux-form'
 
+const STATE_VERSION = 1
+
 function saveToLocalStorage(state) {
   try {
-    const serializedState = JSON.stringify(state)
+    const serializedState = JSON.stringify({
+      stateVersion: STATE_VERSION,
+      stateData: state
+    })
     localStorage.setItem('state', serializedState)
   } catch (error) {
     console.log(error)
@@ -15,10 +20,23 @@ function loadFromLocalStorage() {
   try {
     const serializedState = localStorage.getItem('state')
     if (serializedState === null) return undefined
-    return JSON.parse(serializedState)
+
+    const loadedState = JSON.parse(serializedState)
+
+    if (loadedState.stateVersion === STATE_VERSION) {
+      return loadedState.stateData
+    } else {
+      return migrateStateData(loadedState)
+    }
   } catch (error) {
     console.log(error)
   }
+}
+
+function migrateStateData(loadedState) {
+  // switch stateVersion for migration process
+  console.log('Migration from', loadedState.stateVersion, 'to', STATE_VERSION)
+  return loadedState.stateData
 }
 
 const rootReducer = {
