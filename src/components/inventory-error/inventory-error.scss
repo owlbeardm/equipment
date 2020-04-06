@@ -1,0 +1,41 @@
+$basic-color: #ca945c;
+$accent-color: #946d44;
+$icon-height: 2rem;
+
+.inventory-error {
+  border: 1px solid $basic-color;
+  padding: 1rem;
+  margin-bottom: 0;
+
+  div {
+    display: flex;
+    flex-grow: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: $accent-color;
+
+    .warning-icon {
+      font-size: $icon-height;
+      margin: 0 1.2rem 0 0;
+      background-color: #{$basic-color}75;
+      border-radius: $icon-height;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      height: calc(2 * #{$icon-height});
+      width: calc(2 * #{$icon-height});
+    }
+
+    .warning-text {
+      display: flex;
+      flex-direction: column;
+
+      .first-line {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+    }
+
+  }
+ 
+}
