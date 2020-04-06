@@ -52,3 +52,11 @@ deploy:
       condition: $AUTHOR_NAME != "mergify[bot]"
     bucket: "devequipment.owlbeardm.com"
     local_dir: "./dist"
+
+# release a version when on master and commit is tagged
+  - <<: *s3_deploy
+    on:
+      tags: true
+    upload-dir: release
+    bucket: "scrollbear-artifacts"
+    local_dir: "./dist/release"
