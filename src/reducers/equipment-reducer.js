@@ -3,7 +3,8 @@ const updateEquipmentTable = (state, action) => {
     return {
       nextId: 0,
       editingItem: null,
-      data: []
+      data: [],
+      sortOrder: 'id'
     }
   }
 
@@ -37,6 +38,13 @@ const updateEquipmentTable = (state, action) => {
       return {
         ...state.equipment,
         editingItem: action.itemId
+      }
+    }
+
+    case 'SET_SORTING_ORDER': {
+      return {
+        ...state.equipment,
+        sortOrder: action.payload
       }
     }
 
