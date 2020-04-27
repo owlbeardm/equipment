@@ -1,10 +1,11 @@
 import React from 'react'
 import './inventory-item-panel.css'
-import Input from '../input'
-import Select from '../select'
-import { Radio, RadioGroup } from '../radio'
+import Input from '../ui-elements/input'
+import Select from '../ui-elements/select'
+import { Radio, RadioGroup } from '../ui-elements/radio'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
+import Textarea from '../ui-elements/textarea'
 
 const required = value => (value || typeof value === 'number' ? undefined : 'This field is required')
 const decimal = value => (!value || typeof value === 'number' || value.match(/^(0|([1-9]\d*))(\.\d{1,2})?$/) ? undefined : 'The value must be decimal')
@@ -119,6 +120,16 @@ let InventoryItemPanel = (props) => {
               </div>
             </div>
           }
+
+          <div className="row">
+            <div className="col">
+              <Field
+                name='description'
+                label='Description'
+                component={Textarea}
+              />
+            </div>
+          </div>
 
           <div className="row">
             <div className="col-md">
