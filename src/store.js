@@ -2,7 +2,7 @@ import { createStore, combineReducers } from 'redux'
 import dataReducer from './reducers'
 import { reducer as formReducer } from 'redux-form'
 
-const STATE_VERSION = 1
+const STATE_VERSION = 2
 
 function saveToLocalStorage(state) {
   try {
@@ -34,9 +34,19 @@ function loadFromLocalStorage() {
 }
 
 function migrateStateData(loadedState) {
-  // switch stateVersion for migration process
-  console.log('Migration from', loadedState.stateVersion, 'to', STATE_VERSION)
-  return loadedState.stateData
+  console.log('State version migration: from', loadedState.stateVersion, 'to', STATE_VERSION)
+  switch (loadedState.stateVersion) {
+    case 1: {
+      loadedState.stateData.main.equipment.data.forEach((elem) => {
+        if (!elem.amount) {
+          elem.amount = 1
+        }
+      })
+      return loadedState.stateData
+    }
+    default:
+      return loadedState.stateData
+  }
 }
 
 const rootReducer = {

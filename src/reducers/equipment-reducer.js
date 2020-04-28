@@ -75,10 +75,11 @@ const updateOrRemoveItem = (data, operation, itemId, newItemData) => {
   }
 }
 
-const makeNewItem = (itemId, { name, costInGp, slot = 'slotless', weight, weightRadio = 'negligible', description }) => {
+const makeNewItem = (itemId, { name, amount = '1', costInGp, slot = 'slotless', weight, weightRadio = 'negligible', description }) => {
   return {
     id: itemId,
     name,
+    amount: parseInt(amount) || 1,
     slot,
     costInGp: parseFloat(costInGp) || 0,
     weight: parseInt(weight) || 0,
