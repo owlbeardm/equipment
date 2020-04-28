@@ -22,10 +22,10 @@ const SLOT_OPTIONS = [
   'eyes',
   'feet',
   'hands',
-  'ring',
   'head',
   'headband',
   'neck',
+  'ring',
   'shoulders',
   'wrists'
 ]
@@ -76,6 +76,15 @@ let InventoryItemPanel = (props) => {
           </div>
 
           <div className="row">
+            <div className="col-md">
+              <Field
+                name={'amount'}
+                label={'Amount'}
+                component={Input}
+                validate={whole}
+              />
+            </div>
+
             <div className="col-md">
               <Field
                 name='costInGp'
