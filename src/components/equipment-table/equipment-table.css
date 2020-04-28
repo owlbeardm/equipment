@@ -36,6 +36,15 @@
   padding: 0;
 }
 
+.equipment-table-header .dropdown .dropdown-menu {
+  padding: 0.3125rem;
+}
+
+.equipment-table-header .dropdown .dropdown-menu .dropdown-item {
+  margin: 0;
+  width: 100%;
+}
+
 @media all and (max-width: 430px) {
   .flex-row {
     justify-content: flex-end;
