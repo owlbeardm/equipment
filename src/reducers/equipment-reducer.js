@@ -3,34 +3,43 @@ const updateEquipmentTable = (state, action) => {
     return {
       nextId: 0,
       editingItem: null,
-      data: [],
-      sortOrder: 'id'
+      sortOrder: 'id',
+      totalWeight: 0,
+      data: []
     }
   }
 
   switch (action.type) {
-    case 'ITEM_ADD_TO_LIST':
+    case 'ITEM_ADD_TO_LIST': {
+      const newData = [
+        ...state.equipment.data,
+        makeNewItem(state.equipment.nextId, action.payload)
+      ]
       return {
         ...state.equipment,
         nextId: state.equipment.nextId + 1,
-        data: [
-          ...state.equipment.data,
-          makeNewItem(state.equipment.nextId, action.payload)
-        ]
+        totalWeight: calculateTotalWeight(newData),
+        data: newData
       }
+    }
 
-    case 'ITEM_REMOVE_FROM_LIST':
+    case 'ITEM_REMOVE_FROM_LIST': {
+      const newData = updateOrRemoveItem(state.equipment.data, 'remove', action.itemId)
       return {
         ...state.equipment,
-        data: updateOrRemoveItem(state.equipment.data, 'remove', action.itemId)
+        totalWeight: calculateTotalWeight(newData),
+        data: newData
       }
+    }
 
     case 'ITEM_EDIT_DATA': {
       const newItemData = makeNewItem(action.itemId, action.payload)
+      const newData = updateOrRemoveItem(state.equipment.data, 'update', action.itemId, newItemData)
       return {
         ...state.equipment,
         editingItem: null,
-        data: updateOrRemoveItem(state.equipment.data, 'update', action.itemId, newItemData)
+        totalWeight: calculateTotalWeight(newData),
+        data: newData
       }
     }
 
@@ -76,16 +85,26 @@ const updateOrRemoveItem = (data, operation, itemId, newItemData) => {
 }
 
 const makeNewItem = (itemId, { name, amount = '1', costInGp, slot = 'slotless', weight, weightRadio = 'negligible', description }) => {
+  const itemWeight = (weightRadio === 'bulk') ? weight : 0
   return {
     id: itemId,
     name,
     amount: parseInt(amount) || 1,
     slot,
     costInGp: parseFloat(costInGp) || 0,
-    weight: parseInt(weight) || 0,
+    weight: parseInt(itemWeight) || 0,
     weightRadio,
     description
   }
+}
+
+const calculateTotalWeight = (data) => {
+  const initialValue = 0
+  const total = data.reduce(
+    (sum, current) => sum + current.weight,
+    initialValue
+  )
+  return total
 }
 
 export default updateEquipmentTable

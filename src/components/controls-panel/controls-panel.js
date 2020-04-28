@@ -1,7 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import './controls-panel.css'
 
-const ControlsPanel = ({ onAdding }) => {
+const ControlsPanel = ({ onAdding, totalWeight }) => {
   return (
     <div className="controls-panel d-flex justify-content-between align-items-center py-2">
       <button className="btn btn-success"
@@ -9,9 +10,15 @@ const ControlsPanel = ({ onAdding }) => {
       >
         Add item
       </button>
-      {/* <span>Total weight:{'\u2003'}5</span> */}
+      <span>Total weight:{`\u2003${totalWeight}`}</span>
     </div>
   )
 }
 
-export default ControlsPanel
+const mapStateToProps = ({ main: { equipment } }) => {
+  return {
+    totalWeight: equipment.totalWeight
+  }
+}
+
+export default connect(mapStateToProps)(ControlsPanel)
