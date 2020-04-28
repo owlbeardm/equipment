@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import './equipment-table.css'
 
 const EquipmentTableHeader = ({ children, sortOrder, setSortingOrder }) => {
   const [listOpen, setListOpen] = useState(false)
@@ -20,34 +21,34 @@ const EquipmentTableHeader = ({ children, sortOrder, setSortingOrder }) => {
       </button>
       <div className={`dropdown-menu dropdown-menu-right ${listOpen && 'show'}`}>
         <button
-          className={`dropdown-item ${(sortOrder === 'id') && 'active'}`}
+          className={`dropdown-item ${(sortOrder === 'id') ? 'active' : ''}`}
           type="button"
           onClick={() => handleClick('id')}
         >
-          By addition order
+          By adding order
         </button>
 
         <button
-          className={`dropdown-item ${(sortOrder === 'name') && 'active'}`}
+          className={`dropdown-item ${(sortOrder === 'name') ? 'active' : ''}`}
           type="button"
           onClick={() => handleClick('name')}
         >
-          By name (A to Z)
+          By name
         </button>
 
         <button
-          className={`dropdown-item ${(sortOrder === 'weight') && 'active'}`}
+          className={`dropdown-item ${(sortOrder === 'weight') ? 'active' : ''}`}
           type="button"
           onClick={() => handleClick('weight')}
         >
-          By weight (desc)
+          By weight
         </button>
       </div>
     </div>
   )
 
   return (
-    <div className="card card-plain">
+    <div className="equipment-table-header card card-plain">
       <div className="card-header card-header-primary d-flex">
         <h4 className="mb-0 text-dark flex-grow-1">Equipment</h4>
         {sortDropdown}
