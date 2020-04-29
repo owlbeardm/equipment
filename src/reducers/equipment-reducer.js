@@ -101,7 +101,7 @@ const makeNewItem = (itemId, { name, amount = '1', costInGp, slot = 'slotless', 
 const calculateTotalWeight = (data) => {
   const initialValue = 0
   const total = data.reduce(
-    (sum, current) => sum + current.weight,
+    (sum, current) => sum + (current.weight * current.amount),
     initialValue
   )
   return total
