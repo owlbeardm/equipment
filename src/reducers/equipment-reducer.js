@@ -4,7 +4,7 @@ const updateEquipmentTable = (state, action) => {
       nextId: 0,
       editingItem: null,
       sortOrder: 'id',
-      totalWeight: 0,
+      weightUnits: {},
       data: []
     }
   }
@@ -18,7 +18,7 @@ const updateEquipmentTable = (state, action) => {
       return {
         ...state.equipment,
         nextId: state.equipment.nextId + 1,
-        totalWeight: calculateTotalWeight(newData),
+        weightUnits: calculateWeightUnits(newData),
         data: newData
       }
     }
@@ -27,7 +27,7 @@ const updateEquipmentTable = (state, action) => {
       const newData = updateOrRemoveItem(state.equipment.data, 'remove', action.itemId)
       return {
         ...state.equipment,
-        totalWeight: calculateTotalWeight(newData),
+        weightUnits: calculateWeightUnits(newData),
         data: newData
       }
     }
@@ -38,7 +38,7 @@ const updateEquipmentTable = (state, action) => {
       return {
         ...state.equipment,
         editingItem: null,
-        totalWeight: calculateTotalWeight(newData),
+        weightUnits: calculateWeightUnits(newData),
         data: newData
       }
     }
@@ -98,13 +98,28 @@ const makeNewItem = (itemId, { name, amount = '1', costInGp, slot = 'slotless', 
   }
 }
 
-const calculateTotalWeight = (data) => {
-  const initialValue = 0
-  const total = data.reduce(
-    (sum, current) => sum + (current.weight * current.amount),
-    initialValue
-  )
-  return total
+const calculateWeightUnits = (data) => {
+  const initialWeight = {
+    bulksWeight: 0,
+    lightCount: 0,
+    negligibleCount: 0
+  }
+
+  data.forEach((elem) => {
+    switch (elem.weightRadio) {
+      case 'bulk':
+        initialWeight.bulksWeight += elem.weight * elem.amount
+        break
+      case 'light':
+        initialWeight.lightCount += elem.amount
+        break
+      case 'negligible':
+      default:
+        initialWeight.negligibleCount += elem.amount
+    }
+  })
+
+  return initialWeight
 }
 
 export default updateEquipmentTable

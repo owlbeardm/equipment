@@ -2,7 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './controls-panel.css'
 
-const ControlsPanel = ({ onAdding, totalWeight }) => {
+const ControlsPanel = ({ onAdding, weightUnits }) => {
+  const totalWeight = weightUnits ? (weightUnits.bulksWeight +
+    Math.floor(0.1 * weightUnits.lightCount) +
+    Math.floor(0.001 * weightUnits.negligibleCount)) : 0
+
   return (
     <div className="controls-panel d-flex justify-content-between align-items-center py-2">
       <button className="btn btn-success"
@@ -17,7 +21,7 @@ const ControlsPanel = ({ onAdding, totalWeight }) => {
 
 const mapStateToProps = ({ main: { equipment } }) => {
   return {
-    totalWeight: equipment.totalWeight
+    weightUnits: equipment.weightUnits
   }
 }
 
