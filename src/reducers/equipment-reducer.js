@@ -3,7 +3,8 @@ const updateEquipmentTable = (state, action) => {
     return {
       nextId: 0,
       editingItem: null,
-      data: []
+      data: [],
+      sortOrder: 'id'
     }
   }
 
@@ -40,6 +41,13 @@ const updateEquipmentTable = (state, action) => {
       }
     }
 
+    case 'SET_SORTING_ORDER': {
+      return {
+        ...state.equipment,
+        sortOrder: action.payload
+      }
+    }
+
     default:
       return state.equipment
   }
@@ -67,14 +75,15 @@ const updateOrRemoveItem = (data, operation, itemId, newItemData) => {
   }
 }
 
-const makeNewItem = (itemId, { name, costInGp, slot = 'slotless', weight, weightRadio = 'negligible' }) => {
+const makeNewItem = (itemId, { name, costInGp, slot = 'slotless', weight, weightRadio = 'negligible', description }) => {
   return {
     id: itemId,
-    name: name,
-    slot: slot,
+    name,
+    slot,
     costInGp: parseFloat(costInGp) || 0,
     weight: parseInt(weight) || 0,
-    weightRadio: weightRadio
+    weightRadio,
+    description
   }
 }
 
