@@ -3,34 +3,43 @@ const updateEquipmentTable = (state, action) => {
     return {
       nextId: 0,
       editingItem: null,
-      data: [],
-      sortOrder: 'id'
+      sortOrder: 'id',
+      weightUnits: {},
+      data: []
     }
   }
 
   switch (action.type) {
-    case 'ITEM_ADD_TO_LIST':
+    case 'ITEM_ADD_TO_LIST': {
+      const newData = [
+        ...state.equipment.data,
+        makeNewItem(state.equipment.nextId, action.payload)
+      ]
       return {
         ...state.equipment,
         nextId: state.equipment.nextId + 1,
-        data: [
-          ...state.equipment.data,
-          makeNewItem(state.equipment.nextId, action.payload)
-        ]
+        weightUnits: calculateWeightUnits(newData),
+        data: newData
       }
+    }
 
-    case 'ITEM_REMOVE_FROM_LIST':
+    case 'ITEM_REMOVE_FROM_LIST': {
+      const newData = updateOrRemoveItem(state.equipment.data, 'remove', action.itemId)
       return {
         ...state.equipment,
-        data: updateOrRemoveItem(state.equipment.data, 'remove', action.itemId)
+        weightUnits: calculateWeightUnits(newData),
+        data: newData
       }
+    }
 
     case 'ITEM_EDIT_DATA': {
       const newItemData = makeNewItem(action.itemId, action.payload)
+      const newData = updateOrRemoveItem(state.equipment.data, 'update', action.itemId, newItemData)
       return {
         ...state.equipment,
         editingItem: null,
-        data: updateOrRemoveItem(state.equipment.data, 'update', action.itemId, newItemData)
+        weightUnits: calculateWeightUnits(newData),
+        data: newData
       }
     }
 
@@ -75,16 +84,42 @@ const updateOrRemoveItem = (data, operation, itemId, newItemData) => {
   }
 }
 
-const makeNewItem = (itemId, { name, costInGp, slot = 'slotless', weight, weightRadio = 'negligible', description }) => {
+const makeNewItem = (itemId, { name, amount = '1', costInGp, slot = 'slotless', weight, weightRadio = 'negligible', description }) => {
+  const itemWeight = (weightRadio === 'bulk') ? weight : 0
   return {
     id: itemId,
     name,
+    amount: parseInt(amount) || 1,
     slot,
     costInGp: parseFloat(costInGp) || 0,
-    weight: parseInt(weight) || 0,
+    weight: parseInt(itemWeight) || 0,
     weightRadio,
     description
   }
+}
+
+const calculateWeightUnits = (data) => {
+  const initialWeight = {
+    bulksWeight: 0,
+    lightCount: 0,
+    negligibleCount: 0
+  }
+
+  data.forEach((elem) => {
+    switch (elem.weightRadio) {
+      case 'bulk':
+        initialWeight.bulksWeight += elem.weight * elem.amount
+        break
+      case 'light':
+        initialWeight.lightCount += elem.amount
+        break
+      case 'negligible':
+      default:
+        initialWeight.negligibleCount += elem.amount
+    }
+  })
+
+  return initialWeight
 }
 
 export default updateEquipmentTable

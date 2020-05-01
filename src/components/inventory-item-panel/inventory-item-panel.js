@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './inventory-item-panel.css'
 import Input from '../ui-elements/input'
 import Select from '../ui-elements/select'
@@ -22,16 +22,16 @@ const SLOT_OPTIONS = [
   'eyes',
   'feet',
   'hands',
-  'ring',
   'head',
   'headband',
   'neck',
+  'ring',
   'shoulders',
   'wrists'
 ]
 
 let InventoryItemPanel = (props) => {
-  const { operation = 'add', handleSubmit, handleCancel, weightRadio } = props
+  const { operation = 'add', handleSubmit, handleCancel, initialize, weightRadio } = props
 
   let cardHeaderStyle, cardHeaderIcon, cardHeaderText, submitLabel
 
@@ -49,6 +49,10 @@ let InventoryItemPanel = (props) => {
       cardHeaderText = 'Add item to inventory'
       submitLabel = 'Add'
   }
+
+  useEffect(() => {
+    if (operation === 'add') { initialize() }
+  }, [])
 
   return (
 
@@ -76,6 +80,15 @@ let InventoryItemPanel = (props) => {
           </div>
 
           <div className="row">
+            <div className="col-md">
+              <Field
+                name={'amount'}
+                label={'Amount'}
+                component={Input}
+                validate={whole}
+              />
+            </div>
+
             <div className="col-md">
               <Field
                 name='costInGp'
