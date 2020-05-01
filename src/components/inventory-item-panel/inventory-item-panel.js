@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './inventory-item-panel.css'
 import Input from '../ui-elements/input'
 import Select from '../ui-elements/select'
 import { Radio, RadioGroup } from '../ui-elements/radio'
-import { reduxForm, Field, formValueSelector, initialize } from 'redux-form'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import Textarea from '../ui-elements/textarea'
 
@@ -31,7 +31,7 @@ const SLOT_OPTIONS = [
 ]
 
 let InventoryItemPanel = (props) => {
-  const { operation = 'add', handleSubmit, handleCancel, clearInitialValues, weightRadio } = props
+  const { operation = 'add', handleSubmit, handleCancel, initialize, weightRadio } = props
 
   let cardHeaderStyle, cardHeaderIcon, cardHeaderText, submitLabel
 
@@ -44,12 +44,15 @@ let InventoryItemPanel = (props) => {
       break
     case 'add':
     default:
-      clearInitialValues()
       cardHeaderStyle = 'success'
       cardHeaderIcon = 'add_circle_outline'
       cardHeaderText = 'Add item to inventory'
       submitLabel = 'Add'
   }
+
+  useEffect(() => {
+    if (operation === 'add') { initialize() }
+  }, [])
 
   return (
 
@@ -184,12 +187,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    clearInitialValues: () => {
-      dispatch(initialize('inventoryItemForm', {}))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(InventoryItemPanel)
+export default connect(mapStateToProps)(InventoryItemPanel)
