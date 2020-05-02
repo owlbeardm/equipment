@@ -2,7 +2,7 @@ import { createStore, combineReducers } from 'redux'
 import dataReducer from './reducers'
 import { reducer as formReducer } from 'redux-form'
 
-const STATE_VERSION = 2
+const STATE_VERSION = 3
 
 function saveToLocalStorage(state) {
   try {
@@ -35,6 +35,7 @@ function loadFromLocalStorage() {
 
 function migrateStateData(loadedState) {
   console.log('State version migration: from', loadedState.stateVersion, 'to', STATE_VERSION)
+  // eslint-disable-next-line default-case
   switch (loadedState.stateVersion) {
     case 1: {
       loadedState.stateData.main.equipment.data.forEach((elem) => {
@@ -42,11 +43,35 @@ function migrateStateData(loadedState) {
           elem.amount = 1
         }
       })
-      return loadedState.stateData
     }
-    default:
-      return loadedState.stateData
+    // eslint-disable-next-line no-fallthrough
+    case 2: {
+      const weightUnits = {
+        bulksWeight: 0,
+        lightCount: 0,
+        negligibleCount: 0
+      }
+
+      const equipment = loadedState.stateData.main.equipment
+
+      equipment.data.forEach((elem) => {
+        switch (elem.weightRadio) {
+          case 'bulk':
+            weightUnits.bulksWeight += elem.weight * elem.amount
+            break
+          case 'light':
+            weightUnits.lightCount += elem.amount
+            break
+          case 'negligible':
+          default:
+            weightUnits.negligibleCount += elem.amount
+        }
+      })
+
+      equipment.weightUnits = weightUnits
+    }
   }
+  return loadedState.stateData
 }
 
 const rootReducer = {
