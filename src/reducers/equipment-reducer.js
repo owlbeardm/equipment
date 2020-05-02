@@ -4,7 +4,11 @@ const updateEquipmentTable = (state, action) => {
       nextId: 0,
       editingItem: null,
       sortOrder: 'id',
-      weightUnits: {},
+      weightUnits: {
+        bulksWeight: 0,
+        lightCount: 0,
+        negligibleCount: 0
+      },
       data: []
     }
   }
