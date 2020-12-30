@@ -4,14 +4,6 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "@babel/plugin-proposal-class-properties",
-    [
-      "react-remove-properties",
-      {
-        "properties": [
-          "data-test"
-        ]
-      }
-    ]
+    "@babel/plugin-proposal-class-properties"
   ]
 }
