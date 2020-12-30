@@ -57,11 +57,5 @@
     "webpack": "^4.44.2",
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "^3.11.1"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
-      "\\.(gif|png|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
-    }
   }
 }
