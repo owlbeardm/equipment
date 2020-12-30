@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './inventory-error.scss'
 
 const InventoryError = ({ errorMsg }) => {
   return (
-    <div className="inventory-error card">
+    <div className="inventory-error card" data-test="component-inventory-error">
       <div>
         <div className="warning-icon">
           <i className="fas fa-shopping-bag"></i>
@@ -12,7 +13,7 @@ const InventoryError = ({ errorMsg }) => {
           <div className="first-line">
             OOPS!
           </div>
-          <div>{errorMsg}</div>
+          <div data-test="error-msg">{errorMsg}</div>
           <div></div>
         </div>
       </div>
@@ -21,3 +22,7 @@ const InventoryError = ({ errorMsg }) => {
 }
 
 export default InventoryError
+
+InventoryError.propTypes = {
+  errorMsg: PropTypes.string.isRequired
+}
