@@ -18,7 +18,8 @@
     "build": "webpack --config webpack.js --mode=production",
     "start": "webpack-dev-server --hot --open --config webpack.js --mode=development",
     "lint": "eslint src/",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "travis-test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
