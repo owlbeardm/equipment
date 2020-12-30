@@ -6,7 +6,7 @@ import Header from '../header'
 
 const App = () => {
   return (
-    <div className="main-panel">
+    <div className="main-panel" data-test="component-app">
       <Header />
       <div className="content container">
         <PageContent />
