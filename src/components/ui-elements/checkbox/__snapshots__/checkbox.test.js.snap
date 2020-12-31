@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without error 1`] = `"<div class=\\"form-group\\"><div class=\\"form-check\\"><label class=\\"form-check-label text-dark\\"><input type=\\"checkbox\\" name=\\"the-checkbox\\" class=\\"form-check-input\\"/>the checkbox<span class=\\"form-check-sign\\"><span class=\\"check\\"></span></span></label></div></div>"`;

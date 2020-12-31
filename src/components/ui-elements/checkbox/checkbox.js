@@ -1,5 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
+/**
+ * @component A checkbox form field to use within Redux-form
+ * @param {object} input Prop that connects a component to the Redux
+ * @param {string} label The label of the checkbox
+ * @param {bool} disabled Disables the checkbox
+ * @returns React Component
+*/
 const Checkbox = ({ input, label, disabled }) => {
   const name = input.name
 
@@ -27,3 +35,11 @@ const Checkbox = ({ input, label, disabled }) => {
 }
 
 export default Checkbox
+
+Checkbox.propTypes = {
+  input: PropTypes.shape({
+    name: PropTypes.string
+  }),
+  label: PropTypes.string,
+  disabled: PropTypes.bool
+}
