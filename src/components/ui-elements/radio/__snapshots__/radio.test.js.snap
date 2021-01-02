@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Radio component testing renders without error 1`] = `"<div class=\\"form-check form-check-radio\\"><label class=\\"form-check-label text-dark\\"><input type=\\"radio\\" value=\\"the-radio\\" id=\\"the-radio\\" class=\\"form-check-input\\"/>the radio<span class=\\"circle\\"><span class=\\"check\\"></span></span></label></div>"`;
+
+exports[`RadioGroup component testing renders without error 1`] = `"<div class=\\"form-group\\"><div class=\\"form-check form-check-radio\\" input=\\"[object Object]\\"><label class=\\"form-check-label text-dark\\"><input type=\\"radio\\" value=\\"the-radio\\" id=\\"the-radio\\" class=\\"form-check-input\\"/>the radio<span class=\\"circle\\"><span class=\\"check\\"></span></span></label></div><div class=\\"form-check form-check-radio\\" input=\\"[object Object]\\"><label class=\\"form-check-label text-dark\\"><input type=\\"radio\\" value=\\"the-radio\\" id=\\"the-radio\\" class=\\"form-check-input\\"/>the radio<span class=\\"circle\\"><span class=\\"check\\"></span></span></label></div></div>"`;

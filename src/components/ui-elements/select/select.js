@@ -1,10 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
+/**
+ * @component A select form field to use within Redux-form
+ * @param {object} input Prop that connects a component to the Redux
+ * @param {string} label The label of the select field
+ * @param {array of strings} options Options of the dropdown list
+ * @returns React Component
+*/
 
 const Select = ({ input, label, options }) => {
   const name = input.name
 
   const selectOptions = options.map((option) => (
-    <option key={option}>{option}</option>
+    <option key={option} data-test='option'>{option}</option>
   ))
 
   return (
@@ -19,7 +28,7 @@ const Select = ({ input, label, options }) => {
         id={name}
         className="form-control"
       >
-        <option key={'_empty'}>{''}</option>
+        <option key='_empty' data-test='option'>{''}</option>
         {selectOptions}
       </select>
 
@@ -28,3 +37,11 @@ const Select = ({ input, label, options }) => {
 }
 
 export default Select
+
+Select.propTypes = {
+  input: PropTypes.shape({
+    name: PropTypes.string
+  }),
+  label: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.string)
+}
