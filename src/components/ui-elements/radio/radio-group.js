@@ -27,6 +27,6 @@ export default RadioGroup
 RadioGroup.propTypes = {
   input: PropTypes.object,
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.instanceOf(Radio))
+    PropTypes.arrayOf(PropTypes.element)
   ]).isRequired
 }
