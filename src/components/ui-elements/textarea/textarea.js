@@ -1,11 +1,12 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 
 const Textarea = ({ input, label }) => {
   const name = input.name
 
   const textareaRef = useRef(null)
 
-  useEffect(() => {
+  React.useEffect(() => {
     textareaRef.current.style.height = '0px'
     const scrollHeight = textareaRef.current.scrollHeight
     textareaRef.current.style.setProperty('height', `${scrollHeight}px`, 'important')
@@ -21,6 +22,7 @@ const Textarea = ({ input, label }) => {
       <textarea
         {...input}
         id={name}
+        data-test='textarea-node'
         rows="1"
         ref={textareaRef}
         className="form-control"
@@ -30,3 +32,10 @@ const Textarea = ({ input, label }) => {
 }
 
 export default Textarea
+
+Textarea.propTypes = {
+  input: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }),
+  label: PropTypes.string
+}
