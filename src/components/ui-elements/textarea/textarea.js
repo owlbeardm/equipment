@@ -1,6 +1,12 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 
+/**
+ * @component A textarea form field to use within Redux-form
+ * @param {object} input Prop that connects a component to the Redux
+ * @param {string} label The label of the checkbox
+ * @returns React Component
+*/
 const Textarea = ({ input, label }) => {
   const name = input.name
 

@@ -27,6 +27,7 @@ const Input = ({ input, type, label, disabled, meta: { touched, pristine, valid,
       <input
         {...input}
         id={name}
+        data-test="input-node"
         type={type}
         className="form-control"
         disabled={disabled}

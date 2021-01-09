@@ -7,7 +7,7 @@ const validMetaProps = { touched: true, pristine: false, valid: true, invalid: f
 const invalidMetaProps = { touched: true, pristine: false, valid: false, invalid: true, error: 'Bad input' }
 
 const setup = (props) => {
-  const defaultProps = { input: { name: 'the-input' }, type: 'text', label: 'the input', disabled: false }
+  const defaultProps = { input: { name: 'the-input' }, type: 'text', label: 'the input', disabled: false, meta: invalidMetaProps }
   return shallow(<Input {...defaultProps} {...props} />)
 }
 
@@ -15,8 +15,15 @@ describe('rendering testing', () => {
   let wrapper
 
   test('renders without error', () => {
-    wrapper = setup({ meta: invalidMetaProps })
+    wrapper = setup()
     expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  test('renders the value got from props on mount', () => {
+    const nodeValue = 'Some saved text'
+    const wrapper = setup({ input: { value: nodeValue } })
+    const inputNode = wrapper.find('[data-test="input-node"]')
+    expect(inputNode.prop('value')).toEqual(nodeValue)
   })
 
   describe('valid input data', () => {

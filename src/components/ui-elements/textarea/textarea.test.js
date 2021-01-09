@@ -2,7 +2,6 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Textarea from './textarea'
-import { node } from 'prop-types'
 
 const mockUseEffect = jest.fn()
 React.useEffect = mockUseEffect
@@ -20,7 +19,7 @@ describe('rendering testing', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  test('counts height on value change', () => {
+  test('counts height on value prop change', () => {
     const currentProps = { input: { name: 'the-name', value: 'The value' } }
     const wrapper = setup(currentProps)
     mockUseEffect.mockClear()
@@ -28,7 +27,7 @@ describe('rendering testing', () => {
     expect(mockUseEffect).toHaveBeenCalled()
   })
 
-  test('does not count height on other prop change (except for value)', () => {
+  test('does not count height on update with the same value prop', () => {
     const wrapper = setup()
     mockUseEffect.mockClear()
     wrapper.update()
@@ -37,8 +36,7 @@ describe('rendering testing', () => {
 
   test('renders the value got from props on mount', () => {
     const nodeValue = 'Some saved text'
-    const wrapper = setup({ input: { value: nodeValue } })
-    console.log(wrapper.debug())
+    const wrapper = setup({ input: { name: 'the-name', value: nodeValue } })
     const textareaNode = wrapper.find('[data-test="textarea-node"]')
     expect(textareaNode.prop('value')).toEqual(nodeValue)
   })
