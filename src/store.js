@@ -1,6 +1,5 @@
-import { createStore, combineReducers } from 'redux'
-import dataReducer from './reducers'
-import { reducer as formReducer } from 'redux-form'
+import { createStore } from 'redux'
+import rootReducer from './reducers'
 
 const STATE_VERSION = 3
 
@@ -74,19 +73,13 @@ function migrateStateData(loadedState) {
   return loadedState.stateData
 }
 
-const rootReducer = {
-  main: dataReducer,
-  form: formReducer
-}
-const reducer = combineReducers(rootReducer)
-
 const persistedState = loadFromLocalStorage()
 
 // @ts-ignore
 const middlewares = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
 const store = createStore(
-  reducer,
+  rootReducer,
   persistedState,
   middlewares
 )

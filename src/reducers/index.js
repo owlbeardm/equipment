@@ -1,5 +1,7 @@
 import updateMoneyTable from './money-reducer'
 import updateEquipmentTable from './equipment-reducer'
+import { reducer as formReducer } from 'redux-form'
+import { combineReducers } from 'redux'
 
 const dataReducer = (state, action) => {
   return {
@@ -8,4 +10,9 @@ const dataReducer = (state, action) => {
   }
 }
 
-export default dataReducer
+const rootReducer = {
+  main: dataReducer,
+  form: formReducer
+}
+
+export default combineReducers(rootReducer)
