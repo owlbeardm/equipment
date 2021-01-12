@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import './controls-panel.css'
 
-const ControlsPanel = ({ onAdding, weightUnits }) => {
-  const [totalWeight, setTotalWeight] = useState()
+export const ControlsPanel = ({ onAdding, weightUnits }) => {
+  // didn't destructure useState for testing purposes
+  const [totalWeight, setTotalWeight] = React.useState()
+
   useEffect(() => {
     const newWeight = (weightUnits.bulksWeight +
       Math.floor(0.1 * weightUnits.lightCount) +
@@ -14,6 +17,7 @@ const ControlsPanel = ({ onAdding, weightUnits }) => {
   return (
     <div className="controls-panel d-flex justify-content-between align-items-center py-2">
       <button className="btn btn-success"
+        data-test="add-button"
         onClick={onAdding}
       >
         Add item
@@ -30,3 +34,7 @@ const mapStateToProps = ({ main: { equipment } }) => {
 }
 
 export default connect(mapStateToProps)(ControlsPanel)
+
+ControlsPanel.propTypes = {
+  onAdding: PropTypes.func.isRequired
+}
