@@ -53,7 +53,7 @@ const PageContent = ({ editingItem, setEditingItem, itemAddToList, itemEditData 
     case 'mainView':
     default:
       content = (
-        <div className="card-body">
+        <div className="card-body" data-test="main-page">
           <ControlsPanel onAdding={onAdding} />
           {/* <MoneyTable /> */}
           <EquipmentTable onEditing={(id) => onEditing(id)} />

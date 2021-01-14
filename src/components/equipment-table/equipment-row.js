@@ -18,19 +18,19 @@ const EquipmentRow = (props) => {
   }
 
   return (
-    <div className="flex-row" key={id}>
+    <div className="flex-row" key={id} data-test="equipment-row-component">
       <div className="flex-cell first">
         {name}
       </div>
       <div className="flex-cell">{costInGp} gp</div>
       <div className="flex-cell fixed-width basis-3 text-center">{weightValue}</div>
       <div className="flex-cell fixed-width basis-1">
-        <button className="link-button" onClick={() => onEdit(id)} >
+        <button className="link-button" onClick={() => onEdit(id)} data-test="edit-button">
           <i className="push-shadow text-primary fas fa-edit"></i>
         </button>
       </div>
       <div className="flex-cell fixed-width basis-1">
-        <button className="link-button" onClick={() => onRemove(id)} >
+        <button className="link-button" onClick={() => onRemove(id)} data-test="remove-button">
           <i className="push-shadow text-danger fas fa-trash"></i>
         </button>
       </div>
