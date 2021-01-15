@@ -6,7 +6,7 @@ import EquipmentTable from '../equipment-table/equipment-table'
 import InventoryItemPanel from '../inventory-item-panel'
 import { connect } from 'react-redux'
 
-const PageContent = ({ editingItem, setEditingItem, itemAddToList, itemEditData }) => {
+export const UnconnectedPageContent = ({ editingItem, setEditingItem, itemAddToList, itemEditData }) => {
   const [view, setView] = useState('mainView')
 
   const onAdding = () => {
@@ -98,4 +98,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageContent)
+export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedPageContent)
