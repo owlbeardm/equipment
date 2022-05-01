@@ -31,7 +31,7 @@
     "eslint-config-react-app": "^7.0.0",
     "eslint-config-standard": "^15.0.1",
     "eslint-plugin-flowtype": "^8.0.2",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
